@@ -1,5 +1,29 @@
 <?php
 session_start();
+include '../connection.php';
+if(isset($_POST['response'])) {
+    $regno=$_POST['regno'];
+    $category=$_POST['category'];
+    $request_id=$_POST['request_id'];
+    $academic_id=$_POST['academic_id'];
+}
+if(isset($_POST['respondback'])){
+    $regno=$_POST['regno'];
+    $request_id=$_POST['request_id'];
+    $academic_id=$_POST['academic_id'];
+    $description=$_POST['description'];
+    $save = "update academics set response ='$description' where regno='$regno' && id='$academic_id' ";
+    $res = mysqli_query($conn, $save);
+    if($res){
+        $updatere = "update requests set status ='1' where  id='$request_id' ";
+        $updatererun= mysqli_query($conn, $updatere);
+        if($updatererun){
+            $_SESSION['status'] = 'request responded';
+            header("Location:index.php");
+        }
+
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -49,7 +73,7 @@ session_start();
         <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="library.php">Library</a><br>
             <span>Students</span><br>
         <li class="list-unstyled mb-3 "><a class="text-decoration-none bg-info p-2 active" href="students.php">Students</a></li>
-            <span>Requests</span><br>
+        <span>Requests</span><br>
         <li class="list-unstyled mb-3 "><a class="text-decoration-none bg-info p-2 active" href="requests.php">View</a></li>
     </div>
     <div class="content">
@@ -67,8 +91,17 @@ session_start();
             }
             ?>
 
-<!--           please wait <div style="font-size: 40px; width: 4rem;height: 4rem;" class="spinner-border spiner-border-lg"></div>-->
-       </div>
+
+            <div style="display: block; border: solid;align-items: center; justify-content: center; display: grid;" id="process" class="respond">
+                <form action="response.php" method="post">
+                    <input type="text" hidden="" name="regno" value="<?php echo $regno;?>">
+                    <input type="text" hidden="" name="request_id" value="<?php echo $request_id;?>">
+                    <input type="text" hidden="" name="academic_id" value="<?php echo $academic_id;?>">
+                    <h4>Re:Request for <?php echo $category;?></h2>
+                    <textarea name="description" id="" cols="40" rows="5" class="form-control"></textarea>
+                    <button name="respondback" class="btn btn-info w-100 m-2">Respond back</button>
+                </form>
+            </div>        </div>
 
 
 </body>

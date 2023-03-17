@@ -77,3 +77,23 @@ if (isset($_POST['stafflogin'])) {
         header("Location:../index.php");
     }
 }
+if (isset($_POST['retake'])) {
+    $regno=$_POST['regno'];
+    $category=$_POST['category'];
+    $academic_id=$_POST['id'];
+    $id=$_POST['id'];
+    $save = "insert into requests(regno,category,status,academic_id) values('$regno','$category','0','$academic_id')";
+    $res = mysqli_query($conn, $save);
+
+    if($res){
+        $update= "update academics set status=2 where regno='$regno' and id='$id'";
+        $updaterun = mysqli_query($conn, $update);
+        if($updaterun){
+            $_SESSION['status'] = 'request is being processing wait for feedback from the admin';
+            header("Location:academics.php");
+        }
+
+    }
+
+
+}

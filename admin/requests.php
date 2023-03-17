@@ -49,7 +49,7 @@ session_start();
         <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="library.php">Library</a><br>
             <span>Students</span><br>
         <li class="list-unstyled mb-3 "><a class="text-decoration-none bg-info p-2 active" href="students.php">Students</a></li>
-            <span>Requests</span><br>
+        <span>Requests</span><br>
         <li class="list-unstyled mb-3 "><a class="text-decoration-none bg-info p-2 active" href="requests.php">View</a></li>
     </div>
     <div class="content">
@@ -66,9 +66,41 @@ session_start();
                 unset($_SESSION['status']);
             }
             ?>
+            <table class="table table-primary table-bordered">
+                <tr>
+                    <th>Admission</th>
+                    <th>Category</th>
+                    <th>Operation</th>
+                </tr>
+                <?php
+                include '../connection.php';
+                $academic="select * from requests where status=0";
+                $academicrun=mysqli_query($conn,$academic);
+                while($posts=mysqli_fetch_assoc($academicrun)) {
+                    ?>
 
-<!--           please wait <div style="font-size: 40px; width: 4rem;height: 4rem;" class="spinner-border spiner-border-lg"></div>-->
-       </div>
+                    <tr>
+                        <td><?php echo $posts['regno'] ?></td>
+                        <td><?php echo $posts['category'] ?></td>
+                        <td>
+                            <form action="response.php" method="post">
+                                <input type="text" name="regno" hidden="" value="<?php echo $posts['regno'] ?>">
+                                <input type="text" name="request_id"  value="<?php echo $posts['id'] ?>">
+                                <input type="text" name="academic_id" hidden="" value="<?php echo $posts['academic_id'] ?>">
+                                <input type="text" name="category" hidden="" value="<?php echo $posts['category'] ?>">
+                                <button name="response" type="submit" id="respond" class="btn btn-success">Respond</button>
+
+                            </form>
+                        </td>
+
+                    </tr>
+                    <?php
+                }
+                ?>
+            </table>
+
+
+        </div>
 
 
 </body>

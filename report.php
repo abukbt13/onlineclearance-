@@ -55,3 +55,21 @@ $dompdf->render();
 
 // Output the generated PDF to Browser
 $dompdf->stream('test.pdf', array('Attachment' => 0));
+
+<?php
+if(isset($_POST['response'])) {
+    $regno=$_POST['regno'];
+    $category=$_POST['category'];
+
+}
+?>
+<div style="display: block; border: solid;align-items: center; justify-content: center; display: grid;" id="process" class="respond">
+    <form action="">
+        <label for="">Reg No</label>
+        <p><?php echo $regno;?></p>
+        <label for="">Category</label>
+        <p><?php echo $category;?></p>
+        <textarea name="respond" id="" cols="40" rows="5" class="form-control"></textarea>
+        <button class="btn btn-info w-100 m-2">Process</button>
+    </form>
+</div>
