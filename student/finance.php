@@ -38,7 +38,6 @@ include '../header.php';
         <table class="table table-primary table-bordered">
             <tr>
                 <th>Fee Balance</th>
-                <th>Operation</th>
             </tr>
             <?php
             $academic="select * from finance where regno='$regno'";
@@ -47,8 +46,7 @@ include '../header.php';
                 ?>
 
                 <tr>
-                    <td><?php echo $posts['feebalance'] ?></td>
-                    <td><button class="btn btn-secondary">Request Refund</button></td>
+                    <td>ksh.<?php echo $posts['feebalance'] ?></td>
                 </tr>
                 <?php
             }

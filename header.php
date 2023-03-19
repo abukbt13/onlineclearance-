@@ -110,7 +110,7 @@
 
         }
         else{
-            echo '<li><a href="signin.php">LOGIN</a></li>';
+            echo '<li><a href="logout.php">LOGIN</a></li>';
 
         }
         ?>

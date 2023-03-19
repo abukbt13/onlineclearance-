@@ -97,3 +97,17 @@ if (isset($_POST['retake'])) {
 
 
 }
+
+if (isset($_POST['clearnow'])) {
+    $regno=$_POST['regno'];
+    $department=$_POST['department'];
+    $clear="update students set $department='1' where regno='$regno'";
+    $clearrun=mysqli_query($conn,$clear);
+    if($clearrun){
+        session_start();
+        $_SESSION['status'] = 'You have cleared with '.$deparment.' successfully';
+        header("Location:index.php");
+    }
+
+
+}

@@ -33,7 +33,20 @@ include '../header.php';
             </ul>
         </div>
     </div>
-    <div class="main_content w-75 border-start h">
+    <div class="main_content w-75 border-start ">
+        <?php
+        if(isset($_SESSION['status'])){
+        ?>
+        <div>
+            <div class="bg-danger">
+                <p class="bg-danger p-2 text-uppercase"><?php echo $_SESSION['status'] ?></p>
+            </div>
+        </div>
+        <?php
+    unset($_SESSION['status']);
+}
+        ?>
+
         <table class="table table-primary table-bordered">
             <tr>
                 <th>Admission</th>
@@ -42,7 +55,7 @@ include '../header.php';
                 <th colspan="2">Operation</th>
             </tr>
             <?php
-            $academic="select * from boardings where regno='$regno'";
+            $academic="select * from boardings where regno='$regno' and status='0'";
             $academicrun=mysqli_query($conn,$academic);
             while($posts=mysqli_fetch_assoc($academicrun)) {
                 ?>
@@ -51,7 +64,14 @@ include '../header.php';
                     <td><?php echo $posts['regno'] ?></td>
                     <td><?php echo $posts['category'] ?></td>
                     <td><?php echo $posts['description'] ?></td>
-                    <td><button class="btn btn-secondary">Pay damage</button></td>
+                    <td>
+                        <form action="payments.php" method="post">
+                            <input type="text" name="regno" value="<?php echo $posts['regno'] ?>">
+                            <input type="text" name="department" value="boardings">
+                            <input type="number" name="dept_id" value="<?php echo $posts['id'] ?>">
+                            <input type="number" name="cost" value="<?php echo $posts['cost'] ?>">
+                            <button name="clear" class="btn btn-secondary">Pay now</button>
+                        </form></td>
                 </tr>
                 <?php
             }

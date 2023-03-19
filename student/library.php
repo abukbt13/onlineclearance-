@@ -1,6 +1,7 @@
 <?php
 session_start();
 $regno=$_SESSION['regno'];
+include '../connection.php';
 
 ?>
 <?php
@@ -35,23 +36,31 @@ include '../header.php';
     </div>
     <div class="main_content w-75 border-start h">
         <table class="table table-primary table-bordered">
-            <tr>
-                <th>Admission</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th colspan="2">Operation</th>
-            </tr>
+
             <?php
-            $academic="select * from library where regno='$regno'";
+            $academic="select * from library where regno='$regno' && status=0";
             $academicrun=mysqli_query($conn,$academic);
             while($posts=mysqli_fetch_assoc($academicrun)) {
                 ?>
-
                 <tr>
-                    <td><?php echo $posts['regno'] ?></td>
+                    <th>Category</th>
+                    <th>Costs</th>
+                    <th>Description</th>
+                    <th colspan="2">Operation</th>
+                </tr>
+                <tr>
                     <td><?php echo $posts['category'] ?></td>
+                    <td><?php echo $posts['cost'] ?></td>
                     <td><?php echo $posts['description'] ?></td>
-                    <td><button class="btn btn-secondary">Pay damage</button></td>
+                    <td>
+                        <form action="payments.php" method="post">
+                            <input type="text" name="regno" value="<?php echo $posts['regno'] ?>">
+                            <input type="text" name="department" value="library">
+                            <input type="number" name="dept_id" value="<?php echo $posts['id'] ?>">
+                            <input type="number" name="cost" value="<?php echo $posts['cost'] ?>">
+                            <button name="clear" class="btn btn-secondary">Pay now</button>
+                        </form>
+                    </td>
                 </tr>
                 <?php
             }

@@ -51,7 +51,14 @@ session_start();
         <li class="list-unstyled mb-3 "><a class="text-decoration-none bg-info p-2 active" href="students.php">Students</a></li>
             <span>Requests</span><br>
         <li class="list-unstyled mb-3 "><a class="text-decoration-none bg-info p-2 active" href="requests.php">View</a></li>
-    </div>
+     <span>Reports</span><br>
+        <form action="reports.php" method="post">
+            <button name="cleared" class="btn btn-primary">Cleared students</button>
+        </form>
+        <form action="reports.php" method="post">
+            <button name="uncleared" class="btn m-1 btn-primary">UnCleared students</button>
+        </form>
+   </div>
     <div class="content">
         <div>
             <?php
