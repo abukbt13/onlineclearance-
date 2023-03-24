@@ -8,7 +8,7 @@ session_start();
     .content{
         width: 100vw;
         height: 90vh;
-        background-color:red;
+        /*background-color:red;*/
         display: flex;
         align-items: center;
         justify-content: center;
@@ -29,7 +29,7 @@ session_start();
 
 <div class="content">
 
-    <div class="main_content d-flex justify-content-center align-items-center w-50 bg-secondary">
+    <div class="main_content d-flex justify-content-center align-items-center w-50 ">
 
 
         <div class="content_center d-flex justify-content-center">
@@ -46,7 +46,7 @@ session_start();
             }
             ?>
 
-            <p class="text-center text-light text-uppercase pt-2">Login As</p>
+            <p class="text-center text-light bg-info text-uppercase pt-2">Login As</p>
             <div class="student_login d-flex align-items-center justify-content-center">
                 <button class="btn btn-primary me-4" id="show_student">Student</button>
                 <button class="btn btn-primary ms-4" id="show_admin">Admin</button>

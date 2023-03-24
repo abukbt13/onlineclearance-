@@ -28,7 +28,6 @@ $html .= '<table style="border:2px solid blue;border-collapse: collapse;">
                 <th>RegNo</th>
                 <th>School</th>
                 <th>Course</th>
-                <th>Year Joined</th>
             </tr>
             
            </thead>';
@@ -39,7 +38,6 @@ foreach ($rows as $row){
             <td>'.$row['regno'].'</td>
             <td>'.$row['school'].'</td>
             <td>'.$row['course'].'</td>
-            <td>'.$row['regno'].'</td>
 </tr>';
 }
 $html .= '</table>';
