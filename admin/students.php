@@ -1,6 +1,12 @@
 <?php
 session_start();
-?>
+$role=$_SESSION['role'];
+
+if($role!='superadmin') {
+    session_start();
+    $_SESSION['status'] = 'Login first to be able to view this page';
+    header('Location:../index.php');
+}?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -61,31 +67,32 @@ session_start();
                 <h4>Upload students details</h4>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Enter  Registration No</label>
-                    <input type="text" class="form-control" name="regno" id="exampleInputEmail1" placeholder="Registration No">
+                    <input type="text" class="form-control" required minlength="8" name="regno" id="exampleInputEmail1" placeholder="Registration No">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Student Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Student Name">
+                    <input type="text" class="form-control" required name="name" placeholder="Student Name">
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Student ID No</label>
-                    <input type="text" class="form-control" name="idno" placeholder="Student ID No">
-                </div>
+
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Student Email</label>
-                    <input type="text" class="form-control" name="email" placeholder="Student Email">
+                    <input type="email" class="form-control" required name="email" placeholder="Student Email">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Student School</label>
-                    <input type="text" class="form-control" name="school" placeholder="Student School">
+                    <label for="exampleInputPassword1" class="form-label">School</label>
+                    <select name="school" id="" CLASS="form-control">
+                        <option value="SCI">SCI</option>
+                        <option value="SPURS">SPURS</option>
+                        <option value="ACHED">ACHED</option>
+                        <option value="SBE">SBE</option>
+                    </select>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Student Course</label>
-                    <input type="text" class="form-control" name="course" placeholder="Student course">
+                    <label for="exampleInputPassword1" class="form-label">Course</label>
+                    <input type="text" class="form-control" name="course" placeholder="course">
                 </div>
                 <div class="d-flex align-items-center flex-row  justify-content-center">
                     <button type="submit" name="save_student" class="btn w-50 btn-primary text-uppercase">Save students details</button>
-
                 </div>
             </form>
         </div>

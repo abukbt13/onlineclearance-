@@ -18,8 +18,9 @@ if(isset($_POST['respondback'])){
         $updatere = "update requests set status ='1' where  id='$request_id' ";
         $updatererun= mysqli_query($conn, $updatere);
         if($updatererun){
-            $_SESSION['status'] = 'request responded';
-            header("Location:index.php");
+            session_start();
+            $_SESSION['status'] = 'request responded successfully';
+            header("Location:../departments/academics.php");
         }
 
     }

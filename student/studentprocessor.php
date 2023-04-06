@@ -1,11 +1,9 @@
 <?php
 include '../connection.php';
-$staffno1='superadmin@must';
-$password1='mustiso@2015';
 if (isset($_POST['login'])) {
     $regno = $_POST['regno'];
-    $idno = $_POST['idno'];
-    $sql = "select name from students where regno='$regno' && idno='$idno'";
+    $email = $_POST['email'];
+    $sql = "select name from students where regno='$regno' && email='$email'";
     $query = mysqli_query($conn, $sql);
     $count = mysqli_num_rows($query);
 
@@ -25,6 +23,7 @@ if (isset($_POST['login'])) {
 
             $_SESSION['user_id'] = $user_id;
             $_SESSION['regno'] =  $regno;
+            $_SESSION['role'] =  'student';
             $_SESSION['status'] = "You have successfully logged in.";
         header("Location:index.php");
     }
@@ -36,17 +35,20 @@ if (isset($_POST['login'])) {
     }
 }
 if (isset($_POST['stafflogin'])) {
-    $staffno= $_POST['staffno'];
-    $password = $_POST['password'];
-    $encryptedpassword=md5($_POST['password']);
-    $sql1 = "select staffno from admins where staffno='$staffno' && password='$encryptedpassword'";
+    $email= $_POST['email'];
+    $idno = $_POST['idno'];
+
+    $sql1 = "select email from admins where email='$email' && idno='$idno'";
     $query= mysqli_query($conn, $sql1);
     $count = mysqli_num_rows($query);
 //    echo $count;
+echo $email;
+echo $idno;
+echo "<br>";
 
-    if ($count == 1) {
+if ($count == 1) {
 
-        $find = "select * from admins where staffno='$staffno'";
+        $find = "select * from admins where email='$email'";
         $retrieve = mysqli_query($conn, $find);
         $users = mysqli_fetch_all($retrieve, MYSQLI_ASSOC);
 
@@ -54,17 +56,17 @@ if (isset($_POST['stafflogin'])) {
         //the password was correct
         foreach ($users as $user) {
             $user_id = $user['id'];
+            $department = $user['department'];
         }
-            session_start();
 
-        session_start();
+            session_start();
         $_SESSION['admin_id'] = $user_id;
-        $_SESSION['role'] = "Admin";
+        $_SESSION['role'] =$department;
         $_SESSION['status'] = "Welcome back";
-        header("Location:../admin/index.php");
+        header("Location:../departments/$department.php");
     }
 
-    else if($staffno=="superadmin@must" && $password=="mustiso@2015") {
+    else if($email=="superadmin@must" && $idno=="10862804") {
         session_start();
         $_SESSION['role'] = 'superadmin';
         $_SESSION['admin_id'] = '001';
@@ -101,11 +103,11 @@ if (isset($_POST['retake'])) {
 if (isset($_POST['clearnow'])) {
     $regno=$_POST['regno'];
     $department=$_POST['department'];
-    $clear="update students set $department='1' where regno='$regno'";
+    $clear="insert into clearance (regno, department, status) values('$regno','$department','0')";
     $clearrun=mysqli_query($conn,$clear);
     if($clearrun){
         session_start();
-        $_SESSION['status'] = 'You have cleared with '.$deparment.' successfully';
+        $_SESSION['status'] = 'You request is successfully received wait for feedback soon';
         header("Location:index.php");
     }
 

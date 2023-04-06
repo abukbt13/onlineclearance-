@@ -56,12 +56,12 @@ session_start();
                     <!--        <p>Meru University Of science And Technology</p>-->
                     <p class="text-center">Login as Student</p>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Enter Registration No</label>
-                        <input type="text" class="form-control" name="regno" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your email">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="idno" placeholder="Use your id number as password">
+                        <label for="exampleInputPassword1" class="form-label">Registration Number</label>
+                        <input type="text" class="form-control" name="regno" placeholder="Enter Your Registration No">
                     </div>
                     <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
                     <p class="text-white text-uppercase mt-4">Dont remember Password?<a href="resetpassword.php">Click here</a></p>
@@ -74,15 +74,14 @@ session_start();
                     <!--        <p>Meru University Of science And Technology</p>-->
                     <p class="text-center">Admin Login </p>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Staff  Number</label>
-                        <input type="text" class="form-control" name="staffno" id="exampleInputEmail1" placeholder="Enter your staff no" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Enter youe email" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Enter your Password">
+                        <label for="exampleInputPassword1" class="form-label">ID Number</label>
+                        <input type="text" class="form-control" name="idno" placeholder="Enter your Id No">
                     </div>
                     <button type="submit" name="stafflogin" class="btn btn-primary w-100">Login</button>
-                    <p class="text-white text-uppercase mt-4">Dont remember Password?<a href="resetpassword.php">Click here</a></p>
 
                 </form>
 

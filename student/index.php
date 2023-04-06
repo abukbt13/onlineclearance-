@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../connection.php';
-if(!isset($_SESSION['regno'])) {
+if(!isset($_SESSION['role'])) {
     session_start();
     $_SESSION['status'] = 'Login first to be able to view this page';
     header('Location:../index.php');
@@ -24,11 +24,6 @@ $sports="select * from sports where regno='$regno' and status='0'";
 $sportsrun=mysqli_query($conn,$sports);
 $sportsrunnum=mysqli_num_rows($sportsrun);
 
-
-
-
-
-include '../header.php';
 ?>
 <link rel="stylesheet" href="../css/style.css">
 <script src="../app.js"></script>
@@ -44,6 +39,86 @@ if(isset($_SESSION['status'])){
     unset($_SESSION['status']);
 }
 ?>
+
+<style>
+    .head{
+        padding-left: 1rem;
+        background: antiquewhite;
+        display: flex;
+        justify-content: space-between;
+        height: 3rem;
+    }
+    .ul{
+        display: flex;
+    }
+
+    .ul li{
+        list-style: none;
+        margin-right: 1rem;
+        font-size: 22px;
+    }
+    .ul li a{
+        padding: 0.5rem;
+        text-decoration: none;
+    }
+    .ul li a:hover{
+        background: blue;
+        color: white;
+    }
+    .show{
+        display: none;
+        position: absolute;
+        top: 0.2rem;
+        right: 0.2rem;
+        color: #0a58ca;
+    }
+    @media screen and (max-width: 500px) and (min-width: 200px) {
+        .show{
+            display: block;
+        }
+        .head{
+            display: flex;
+            flex-direction: column;
+            padding-left: 0rem;
+            position: relative;
+        }
+        .ul{
+            position: relative;
+            display: flex;
+            top: -6rem;
+            background: grey;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            /*transition-property: top;*/
+            transition-duration: 0.5s;
+            transition-timing-function: ease-in;
+        }
+        .ul li {
+            list-style: none;
+            margin-right: 0rem;
+        }
+        .ul li a:hover{
+            background: blue;
+            color: white;
+        }
+        .active{
+            top: 0rem;
+        }
+
+    }</style>
+<div class="head bg-info">
+    <h3><a href="index.php">Meru University Of Science And Technology</a></h3>
+    <ul class="ul" id="links" class="links">
+<?php echo $_SESSION['role']; ?>
+
+               <li><a href="../logout.php">Logout</a></li>
+
+    </ul>
+    <span class="show" id="show">Show</span>
+
+
+</div>
 <div class="contents d-flex flex-row">
     <div class="sidebar w-25">
         <h2>My dashboard</h2>
@@ -51,8 +126,6 @@ if(isset($_SESSION['status'])){
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="academics.php">Academics</a></li>
-                <li><a href="sports.php">Sports</a></li>
-                <li><a href="boarding.php">Boarding</a></li>
                 <li><a href="library.php">Library</a></li>
                 <li><a href="finance.php">Finance</a></li>
             </ul>
@@ -61,7 +134,7 @@ if(isset($_SESSION['status'])){
     <div class="admin-content d-flex gap-3 justify-content-center mt-4">
 
 
-        <div class="products bg-info w-25">
+        <div class="products bg-info w-100">
             <p class="text-center">Academics</p>
             <div class="contents d-flex flex-column justify-content-center ms-1 ">
                 <p class="text-center">Items to clear</p>
@@ -69,19 +142,17 @@ if(isset($_SESSION['status'])){
 
                 <?php if($academicsnum>0){
                     echo "<p class='text-center'><a  href='academics.php'>view</a></p>";
-                }?>
-            </div>
-            <?php
-            if($academicsnum==0){
-            $confirm_a="select regno from students where academics = 1 and regno='$regno' ";
-                $confirm_arun=mysqli_query($conn,$confirm_a);
-                $confirm_arunnum=mysqli_num_rows($confirm_arun);
-
-                if($confirm_arunnum==1){
-                echo "<p class='text-white bg-success m-1  p-2'>You have cleared with academics department</p>";
-            }
-            else {
-                echo '<div class="contents d-flex flex-column justify-content-center ms-1 ">
+                }
+                else{
+                    $confirm_a="select regno from students where academics = '' and regno='$regno' ";
+                    $confirm_arun=mysqli_query($conn,$confirm_a);
+                    $confirm_arunnum=mysqli_num_rows($confirm_arun);
+//                    echo $confirm_arunnum;
+                    $clearme="select regno from clearance  where  regno='$regno' and department='academics' ";
+                    $clearmerun=mysqli_query($conn,$clearme);
+                    $clearmerunnum=mysqli_num_rows($clearmerun);
+                    if($clearmerunnum=='0'){
+                        echo '<div class="contents d-flex flex-column justify-content-center ms-1 ">
                 <form action="studentprocessor.php" method="post">
                 <input type="text" hidden="" name="regno" value=' . $regno . '>
                 <input type="text" hidden=""  name="department" value="academics">
@@ -91,78 +162,30 @@ if(isset($_SESSION['status'])){
                 </button>
                 </form>
             </div>';
-            }
-            }
-            ?>
-        </div>
-        <div class="products bg-info w-25">
-            <p class="text-center">Boarding</p>
-            <div class="contents d-flex flex-column justify-content-center ms-1 ">
-                <p class="text-center">Items to clear </p>
-                <p class="text-center"><?php echo $boardingnum; ?></p>
-                <?php if($boardingnum>0){
-                    echo "<p class='text-center'><a  href='boarding.php'>view</a></p>";
-                }?>
+                    }
+                    else{
+                        $confirmifcleared="select regno from students  where  regno='$regno' and academics='1'";
+                        $confirmifclearedrun=mysqli_query($conn,$confirmifcleared);
+                        $mystatus=mysqli_num_rows($confirmifclearedrun);
+//                        echo $mystatus;
+                       if($mystatus=='1'){
+                           echo "you have cleared with academics";
+                       }else{
+                           echo "Pending";
+                       }
+
+                    }
+
+
+
+                }
+                ?>
             </div>
-            <?php
-            if($boardingnum==0){
-                $confirm_b="select regno from students where boardings = '1'  and regno='$regno'";
-                $confirm_brun=mysqli_query($conn,$confirm_b);
-                $confirm_brunnum=mysqli_num_rows($confirm_brun);
-                if($confirm_brunnum==1){
-                    echo "<p class='text-white bg-success m-1  p-2'>You have cleared with academics department</p>";
-                }
-                else{
-                    echo'<div class="contents d-flex flex-column justify-content-center ms-1 ">
-                <form action="studentprocessor.php" method="post">
-                <input type="text" hidden="" name="regno" value='.$regno.'>
-                <input type="text" hidden=""  name="department" value="boardings">
-                
-                <button name="clearnow" class="btn  btn-primary my-3">
-                    Clear now
-                </button>
-                </form>
-            </div>';
-                }
-
-            }
-            ?>
 
         </div>
 
-        <div class="products bg-info w-25">
-            <p class="text-center text-uppercase">Sports</p>
-            <div class="contents d-flex flex-column justify-content-center ms-1 ">
-                <p class="text-center">Items to clear </p>
-                <p class="text-center"><?php echo $sportsrunnum; ?></p>
-                <?php if($sportsrunnum>0){
-                    echo "<p class='text-center'><a  href='sports.php'>view</a></p>";
-                }?>
-            </div>
-            <?php
-            if($sportsrunnum==0){
-                $confirm_s="select regno from students where sports = '1' and regno = '$regno' ";
-                $confirm_srun=mysqli_query($conn,$confirm_s);
-                $confirm_srunnum=mysqli_num_rows($confirm_srun);
-                if($confirm_srunnum==1){
-                    echo "<p class='text-white bg-success m-1  p-2'>You have cleared with academics department</p>";
-                }
-            else {
-                echo '<div class="contents d-flex flex-column justify-content-center ms-1 ">
-                <form action="studentprocessor.php" method="post">
-                <input type="text" hidden="" name="regno" value=' . $regno . '>
-                <input type="text" hidden="" name="department" value="sports">
-                <button name="clearnow" class="btn  btn-primary my-3">
-                    Clear now
-                </button>
-                </form>
-            </div>';
-            }
-            }
-            ?>
-        </div>
 
-        <div class="products bg-info w-25">
+        <div class="products bg-info w-100">
        <p class="text-center">Library</p>
             <div class="contents d-flex flex-column justify-content-center ms-1 ">
                 <p class="text-center">Items to clear</p>
@@ -173,23 +196,34 @@ if(isset($_SESSION['status'])){
             </div>
             <?php
             if($libraryrunnum==0){
-                $confirm_l="select regno from students where library = '1'  and regno = '$regno'";
-                $confirm_lrun=mysqli_query($conn,$confirm_l);
-                $confirm_lrunnum=mysqli_num_rows($confirm_lrun);
-                if($confirm_lrunnum==1){
-                    echo "<p class='text-white bg-success m-1  p-2'>You have cleared with academics department</p>";
+                $libconfirming="select regno from students where library = '1' and regno='$regno' ";
+                $libconfirmingrun=mysqli_query($conn,$libconfirming);
+                $libconfirmingrunnum=mysqli_num_rows($libconfirmingrun);
+                if($libconfirmingrunnum==1){
+                    echo "You have cleared with library";
                 }
-            else {
-                echo '<div class="contents d-flex flex-column justify-content-center ms-1 ">
+                else{
+                    $liboo="select regno from clearance  where  regno='$regno' and department='library' ";
+                    $liboorun=mysqli_query($conn,$liboo);
+                    $liboorunnum=mysqli_num_rows($liboorun);
+
+                    if($liboorunnum=='1'){
+                        echo"Request pending";
+                    }
+                    else{
+                        echo '<div class="contents d-flex flex-column justify-content-center ms-1 ">
                 <form action="studentprocessor.php" method="post">
                 <input type="text" hidden="" name="regno" value=' . $regno . '>
-                <input type="text" hidden="" name="department" value="library">
-                <button name="clearnow" class="btn  btn-primary my-3">
+                <input type="text" hidden=""  name="department" value="library">
+                
+                <button name="clearlibrary" class="btn  btn-primary my-3">
                     Clear now
                 </button>
                 </form>
             </div>';
-            }
+                    }
+                }
+
             }
             ?>
         </div>

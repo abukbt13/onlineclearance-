@@ -12,7 +12,7 @@ if(isset($_POST['academics_clearance'])) {
     if($saverun){
         session_start();
         $_SESSION['status'] = 'The student details added successfully';
-        header("Location:index.php");
+        header("Location:../departments/academics.php");
     }
 }
 if(isset($_POST['boarding_clearance'])) {
@@ -68,20 +68,29 @@ if(isset($_POST['add_admins'])) {
         header("Location:index.php");
     }
     $name= $_POST['name'];
-    $staffno = $_POST['staffno'];
     $email= $_POST['email'];
+    $department= $_POST['department'];
     $phone= $_POST['phone'];
-    $role= $_POST['role'];
-    $password= md5($_POST['password']);
+    $idno= $_POST['idno'];
 
-
-    $saveadmin = "insert into admins(name,staffno,email,phone,role,password) values('$name','$staffno','$email','$phone','$role','$password')";
-    $saveadminrun = mysqli_query($conn, $saveadmin);
-    if($saveadminrun){
+    $sql1 = "select email from admins where idno='$idno'";
+    $query= mysqli_query($conn, $sql1);
+    $count = mysqli_num_rows($query);
+    if($count==0){
+        $sql2 = "insert into admins(email,name,department,phone,idno) values('$email','$name','$department','$phone','$idno')";
+        $query = mysqli_query($conn, $sql2);
+        if($query){
+            session_start();
+            $_SESSION['status'] = 'Admin added successfuly';
+            header("Location:index.php");
+        }
+    }
+    else{
         session_start();
-        $_SESSION['status'] = 'Admin was added successfully';
+        $_SESSION['status'] = 'Admin already exists';
         header("Location:index.php");
     }
+
 }
 if(isset($_POST['feebalance_clearance'])) {
     $admin_id=$_SESSION['admin_id'];

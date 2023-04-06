@@ -1,5 +1,12 @@
 <?php
 session_start();
+$role=$_SESSION['role'];
+
+if($role!='superadmin') {
+    session_start();
+    $_SESSION['status'] = 'Login first to be able to view this page';
+    header('Location:../index.php');
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -66,7 +73,7 @@ session_start();
         </div>
         <form class="form" method="post" action="adminprocessor.php">
 
-            <h4>Add Admins page by Super Admin</h4>
+            <h4>Add Admins </h4>
             <div class="form-group">
                 <label for="exampleInputEmail1" class="form-label">Name</label>
                 <input type="text" required class="form-control" name="name" id="exampleInputEmail1" placeholder="Username">
@@ -77,20 +84,21 @@ session_start();
             </div>
 
             <div class="form-group">
-                <label for="exampleInputPassword1" class="form-label">Phone</label>
-                <input type="number" required class="form-control" name="phone" id="exampleInputEmail1" placeholder="Phone">
+                <label for="exampleInputPassword1" class="form-label">Department</label>
+                <select name="department" id="" class="form-control">
+                     <option value="finance">Finance</option>
+                     <option value="library">Library</option>
+                     <option value="academics">Academics</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="number" id="phone" name="phone" required class="form-control" placeholder="Phone">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1" class="form-label">Staff Number</label>
-                <input type="text" required class="form-control" name="staffno" id="exampleInputEmail1" placeholder="Staff No">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1" class="form-label">Role</label>
-                <input type="text" required class="form-control" name="role" id="exampleInputEmail1" placeholder="role">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" required class="form-control" name="password" id="exampleInputEmail1" placeholder="Password">
+                <label for="exampleInputPassword1" class="form-label">Id Number</label>
+                <input type="number"  required class="form-control" name="idno" id="exampleInputEmail1" placeholder="Enter ID  No">
             </div>
 
             <div class="d-flex mt-4 align-items-center flex-row  justify-content-center">

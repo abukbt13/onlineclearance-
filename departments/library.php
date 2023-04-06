@@ -1,9 +1,8 @@
 <?php
 session_start();
 $role=$_SESSION['role'];
-include '../connection.php';
 
-if($role!='academics') {
+if($role!='library') {
     session_start();
     $_SESSION['status'] = 'Login first to be able to view this page';
     header('Location:../index.php');
@@ -143,9 +142,8 @@ if(isset($_SESSION['status'])){
     <div class="sidebar  bg-info px-4">
         <h2 class="text-center text-white bg-secondary">Academics</h2>
         <span>Academics</span>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../departments/academics.php">Home</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/academics.php">Add students to clear</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../departments/academicdepartment.php">View Students</a></li>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/library.php">Add students to clear</a></li>
+<!--        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="academicdepartment.php">View Students</a></li>-->
 
         <li class="list-unstyled mb-3 ">
             <span>Reports</span><br>
@@ -162,38 +160,28 @@ if(isset($_SESSION['status'])){
         </li>
     </div>
     <div class="content">
-        <table class="table table-primary table-bordered">
-            <tr>
-                <th>Admission</th>
-                <th>Category</th>
-                <th>Operation</th>
-            </tr>
+        <div>
+
             <?php
-            include '../connection.php';
-            $academic="select * from requests where status=0";
-            $academicrun=mysqli_query($conn,$academic);
-            while($posts=mysqli_fetch_assoc($academicrun)) {
+            if(isset($_SESSION['status'])){
                 ?>
+                <div>
+                    <div class="alert alert-success" role="alert">
+                        <button class="close" data-dismiss="alert" type="button" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">Success!</h4>
+                        <p><?php echo $_SESSION['status'] ?></p>
+                    </div>
 
-                <tr>
-                    <td><?php echo $posts['regno'] ?></td>
-                    <td><?php echo $posts['category'] ?></td>
-                    <td>
-                        <form action="response.php" method="post">
-                            <input type="text" name="regno" hidden="" value="<?php echo $posts['regno'] ?>">
-                            <input type="text" name="request_id"  hidden="" value="<?php echo $posts['id'] ?>">
-                            <input type="text" name="academic_id" hidden="" value="<?php echo $posts['academic_id'] ?>">
-                            <input type="text" name="category" hidden="" value="<?php echo $posts['category'] ?>">
-                            <button name="response" type="submit" id="respond" class="btn btn-success">Respond</button>
-
-                        </form>
-                    </td>
-
-                </tr>
+                </div>
                 <?php
+                unset($_SESSION['status']);
             }
             ?>
-        </table>
+
+
+        </div>
 
     </div>
 </div>

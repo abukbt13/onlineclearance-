@@ -2,7 +2,6 @@
 session_start();
 $role=$_SESSION['role'];
 include '../connection.php';
-
 if($role!='academics') {
     session_start();
     $_SESSION['status'] = 'Login first to be able to view this page';
@@ -145,7 +144,7 @@ if(isset($_SESSION['status'])){
         <span>Academics</span>
         <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../departments/academics.php">Home</a></li>
         <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/academics.php">Add students to clear</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../departments/academicdepartment.php">View Students</a></li>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="academics.php">View Students</a></li>
 
         <li class="list-unstyled mb-3 ">
             <span>Reports</span><br>
@@ -162,42 +161,47 @@ if(isset($_SESSION['status'])){
         </li>
     </div>
     <div class="content">
-        <table class="table table-primary table-bordered">
+        <table class="table m-2 w-100  px-1 table-responsive-sm table-primary table-hover table-bordered">
+            <thead>
+            <tr><td class="text-center text-uppercase" colspan="5">All students</td></tr>
             <tr>
-                <th>Admission</th>
-                <th>Category</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>School</th>
+                <th>course</th>
                 <th>Operation</th>
             </tr>
+            </thead>
+            <tbody>
             <?php
-            include '../connection.php';
-            $academic="select * from requests where status=0";
-            $academicrun=mysqli_query($conn,$academic);
-            while($posts=mysqli_fetch_assoc($academicrun)) {
+            $orders="select c.regno, s.name,c.id, s.email,s.school,s.course from clearance c join students s on s.regno = c.regno where c.status='0'";
+            $ordersrun=mysqli_query($conn,$orders);
+            while($rows=mysqli_fetch_assoc($ordersrun)){
                 ?>
-
                 <tr>
-                    <td><?php echo $posts['regno'] ?></td>
-                    <td><?php echo $posts['category'] ?></td>
+                    <td><?php echo $rows['name']?></td>
+                    <td><?php echo $rows['email']?></td>
+                    <td><?php echo $rows['school']?></td>
+                    <td><?php echo $rows['course']?></td>
                     <td>
-                        <form action="response.php" method="post">
-                            <input type="text" name="regno" hidden="" value="<?php echo $posts['regno'] ?>">
-                            <input type="text" name="request_id"  hidden="" value="<?php echo $posts['id'] ?>">
-                            <input type="text" name="academic_id" hidden="" value="<?php echo $posts['academic_id'] ?>">
-                            <input type="text" name="category" hidden="" value="<?php echo $posts['category'] ?>">
-                            <button name="response" type="submit" id="respond" class="btn btn-success">Respond</button>
+                        <form action="cleastudentprocessor.php" method="post">
+                            <input type="hidden" name="regno" value="<?php echo $rows['regno']?>">
+
+                               <button type="submit" class="btn btn-success" name="clearstudent">Clear Now</button>
+
 
                         </form>
+                        </form>
                     </td>
-
                 </tr>
                 <?php
             }
             ?>
+            </tbody>
         </table>
 
     </div>
 </div>
-
 
 </body>
 </html>

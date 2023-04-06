@@ -92,7 +92,7 @@
 
     }</style>
 <div class="head bg-info">
-    <h3><a href="index.php">Meru University Science And Technology</a></h3>
+    <h3><a href="index.php">Meru University Of Science And Technology</a></h3>
     <ul class="ul" id="links" class="links">
 
         <?php
