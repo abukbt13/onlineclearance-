@@ -1,5 +1,6 @@
 <?php
 session_start();
+include '../connection.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -68,8 +69,19 @@ session_start();
                 <h4>Boarding Clearance form</h4>
                 <div class="form-group">
                     <label for="exampleInputEmail1" class="form-label">Enter  Registration No</label>
-                    <input type="text" required class="form-control" name="regno" id="exampleInputEmail1" placeholder="Registration No">
-                </div>
+                    <select class="form-control" name="regno" id="">
+                        <?php
+                        $query  = "SELECT regno FROM students";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)){
+                            ?>
+                            <option value="<?php echo $row['regno'];?>">
+                                <?php echo $row['regno'];?>
+                            </option>
+                            <?php
+                        }
+                        ?>
+                    </select>                  </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1" class="form-label">Category</label>
                     <select name="category" required id="" class="form-control">

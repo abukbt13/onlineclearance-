@@ -2,7 +2,7 @@
 session_start();
 $role=$_SESSION['role'];
 
-if($role!='academics') {
+if($role!='finance') {
     session_start();
     $_SESSION['status'] = 'Login first to be able to view this page';
     header('Location:../index.php');
@@ -140,10 +140,10 @@ if(isset($_SESSION['status'])){
 ?>
 <div class="d-flex bg-body-tertiary">
     <div class="sidebar  bg-info px-4">
-        <h2 class="text-center text-white bg-secondary">Academics</h2>
-        <span>Academics</span>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/academics.php">Add students to clear</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="academicdepartment.php">View Students</a></li>
+        <h2 class="text-center text-white bg-secondary">Finance </h2>
+        <span>Finance</span>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/finance.php">Add students to clear</a></li>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="financedepartment.php">View Students</a></li>
 
         <li class="list-unstyled mb-3 ">
             <span>Reports</span><br>

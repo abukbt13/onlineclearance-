@@ -27,7 +27,7 @@ if(isset($_POST['boarding_clearance'])) {
     if($savedetarun){
         session_start();
         $_SESSION['status'] = 'The student details added successfully';
-        header("Location:index.php");
+        header("Location:../departments/boarding.php");
     }
 }
 if(isset($_POST['library_clearance'])) {
@@ -42,7 +42,7 @@ if(isset($_POST['library_clearance'])) {
     if($savedetarun){
         session_start();
         $_SESSION['status'] = 'The student details added successfully';
-        header("Location:index.php");
+        header("Location:../departments/library.php");
     }
 }
 if(isset($_POST['sports_clearance'])) {
@@ -110,7 +110,7 @@ if(isset($_POST['feebalance_clearance'])) {
     if($saveadmirun){
         session_start();
         $_SESSION['status'] = 'Fees details Updated successfully';
-        header("Location:index.php");
+        header("Location:../departments/finance.php");
     }
 }
 

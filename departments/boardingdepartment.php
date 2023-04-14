@@ -2,7 +2,7 @@
 session_start();
 $role=$_SESSION['role'];
 include '../connection.php';
-if($role!='library') {
+if($role!='boarding') {
     session_start();
     $_SESSION['status'] = 'Login first to be able to view this page';
     header('Location:../index.php');
@@ -140,11 +140,11 @@ if(isset($_SESSION['status'])){
 ?>
 <div class="d-flex bg-body-tertiary">
     <div class="sidebar  bg-info px-4">
-        <h2 class="text-center text-white bg-secondary">Library</h2>
-        <span>Library</span>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="library.php">Home</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/library.php">Add students to clear</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="librarydepartment.php">View Students</a></li>
+        <h2 class="text-center text-white bg-secondary">Academics</h2>
+        <span>Academics</span>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../departments/academics.php">Home</a></li>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/academics.php">Add students to clear</a></li>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="academics.php">View Students</a></li>
 
         <li class="list-unstyled mb-3 ">
             <span>Reports</span><br>
@@ -174,7 +174,7 @@ if(isset($_SESSION['status'])){
             </thead>
             <tbody>
             <?php
-            $orders="select c.regno,c.department, s.name,c.id, s.email,s.school,s.course from clearance c join students s on s.regno = c.regno where c.department='library' && c.status='0'";
+            $orders="select c.regno,c.department, s.name,c.id, s.email,s.school,s.course from clearance c join students s on s.regno = c.regno where c.department='boarding' && c.status='0'";
             $ordersrun=mysqli_query($conn,$orders);
             while($rows=mysqli_fetch_assoc($ordersrun)){
                 ?>
@@ -188,7 +188,7 @@ if(isset($_SESSION['status'])){
                             <input type="hidden" name="regno" value="<?php echo $rows['regno']?>">
                             <input type="hidden" name="department" value="<?php echo $rows['department']?>">
 
-                            <button type="submit" class="btn btn-success" name="clearstudent">Clear Now</button>
+                            <button type="submit" class="btn btn-success" name="clearstudentboarding">Clear Now</button>
 
 
                         </form>

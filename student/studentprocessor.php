@@ -103,13 +103,68 @@ if (isset($_POST['retake'])) {
 if (isset($_POST['clearnow'])) {
     $regno=$_POST['regno'];
     $department=$_POST['department'];
-    $clear="insert into clearance (regno, department, status) values('$regno','$department','0')";
-    $clearrun=mysqli_query($conn,$clear);
-    if($clearrun){
-        session_start();
-        $_SESSION['status'] = 'You request is successfully received wait for feedback soon';
-        header("Location:index.php");
+    if($department=='academics'){
+        $lib="select * from academics where regno='$regno'";
+        $librun=mysqli_query($conn,$lib);
+        $numrows=mysqli_num_rows($librun);
+        if($numrows>0){
+            session_start();
+            $_SESSION['status'] = 'You have pending exams you need to do it so that you can finish the clearance';
+            header("Location:index.php");
+            die();
+        }
+        else{
+            $clear="insert into clearance (regno, department, status) values('$regno','$department','0')";
+            $clearrun=mysqli_query($conn,$clear);
+            if($clearrun){
+                session_start();
+                $_SESSION['status'] = 'You request is successfully received wait for feedback soon';
+                header("Location:index.php");
+                die();
+            }
+        }
     }
+    else if($department=='library') {
+        $lib = "select * from academics where regno='$regno' && status='0'";
+        $librun = mysqli_query($conn, $lib);
+        $numrows = mysqli_num_rows($librun);
+        if ($numrows > 0) {
+            session_start();
+            $_SESSION['status'] = 'You need to clear first with Academics';
+            header("Location:index.php");
+            die();
+        } else {
+            $clear = "insert into clearance (regno, department, status) values('$regno','$department','0')";
+            $clearrun = mysqli_query($conn, $clear);
+            if ($clearrun) {
+                session_start();
+                $_SESSION['status'] = 'You request is successfully received wait for feedback soon';
+                header("Location:index.php");
+                die();
+            }
+        }
+    }
+    else if($department=='boarding') {
+        $lib = "select * from library where regno='$regno' && status='0'";
+        $librun = mysqli_query($conn, $lib);
+        $numrows = mysqli_num_rows($librun);
+        if ($numrows > 0) {
+            session_start();
+            $_SESSION['status'] = 'Clear first with Library';
+            header("Location:index.php");
+            die();
+        } else {
+            $clear = "insert into clearance (regno, department, status) values('$regno','$department','0')";
+            $clearrun = mysqli_query($conn, $clear);
+            if ($clearrun) {
+                session_start();
+                $_SESSION['status'] = 'You request is successfully received wait for feedback soon';
+                header("Location:index.php");
+                die();
+            }
+        }
+    }
+
 
 
 }

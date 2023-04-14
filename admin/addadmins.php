@@ -88,6 +88,7 @@ if($role!='superadmin') {
                 <select name="department" id="" class="form-control">
                      <option value="finance">Finance</option>
                      <option value="library">Library</option>
+                     <option value="boarding">Boarding</option>
                      <option value="academics">Academics</option>
                 </select>
             </div>

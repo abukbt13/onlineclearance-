@@ -110,7 +110,7 @@ if(isset($_SESSION['status'])){
 <div class="head bg-info">
     <h3><a href="index.php">Meru University Of Science And Technology</a></h3>
     <ul class="ul" id="links" class="links">
-<?php echo $_SESSION['role']; ?>
+
 
                <li><a href="../logout.php">Logout</a></li>
 
@@ -216,7 +216,50 @@ if(isset($_SESSION['status'])){
                 <input type="text" hidden="" name="regno" value=' . $regno . '>
                 <input type="text" hidden=""  name="department" value="library">
                 
-                <button name="clearlibrary" class="btn  btn-primary my-3">
+                <button name="clearnow" class="btn  btn-primary my-3">
+                    Clear now
+                </button>
+                </form>
+            </div>';
+                    }
+                }
+
+            }
+            ?>
+        </div>
+        <div class="products bg-info w-100">
+       <p class="text-center">Boardings</p>
+            <div class="contents d-flex flex-column justify-content-center ms-1 ">
+                <p class="text-center">Items to clear</p>
+                <p class="text-center"><?php echo $boardingnum; ?></p>
+                <?php if($boardingnum>0){
+                    echo "<p class='text-center'><a  href='boarding.php'>view</a></p>";
+                }?>
+            </div>
+            <?php
+            if($boardingnum==0){
+                $boardingming="select regno from students where boardings = '1' and regno='$regno' ";
+                $boardingmingrun=mysqli_query($conn,$boardingming);
+                $boardingmingrunrunnum=mysqli_num_rows($boardingmingrun);
+                if($boardingmingrunrunnum==1){
+                    echo "You have cleared with Boardings";
+                }
+                else{
+                    $boardii="select regno from clearance  where  regno='$regno' and department='boarding' ";
+                    $boardiirun=mysqli_query($conn,$boardii);
+                    $boardiirunnum=mysqli_num_rows($boardiirun);
+//                    echo $boardiirunnum;
+
+                    if($boardiirunnum=='1'){
+                        echo"Request pending";
+                    }
+                    else{
+                        echo '<div class="contents d-flex flex-column justify-content-center ms-1 ">
+                <form action="studentprocessor.php" method="post">
+                <input type="text" hidden="" name="regno" value=' . $regno . '>
+                <input type="text" hidden=""  name="department" value="boarding">
+                
+                <button name="clearnow" class="btn  btn-primary my-3">
                     Clear now
                 </button>
                 </form>

@@ -140,10 +140,10 @@ if(isset($_SESSION['status'])){
 ?>
 <div class="d-flex bg-body-tertiary">
     <div class="sidebar  bg-info px-4">
-        <h2 class="text-center text-white bg-secondary">Academics</h2>
+        <h2 class="text-center text-white bg-secondary">Library Department</h2>
         <span>Academics</span>
         <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/library.php">Add students to clear</a></li>
-<!--        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="academicdepartment.php">View Students</a></li>-->
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="librarydepartment.php">View request</a></li>
 
         <li class="list-unstyled mb-3 ">
             <span>Reports</span><br>
@@ -160,28 +160,6 @@ if(isset($_SESSION['status'])){
         </li>
     </div>
     <div class="content">
-        <div>
-
-            <?php
-            if(isset($_SESSION['status'])){
-                ?>
-                <div>
-                    <div class="alert alert-success" role="alert">
-                        <button class="close" data-dismiss="alert" type="button" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="alert-heading">Success!</h4>
-                        <p><?php echo $_SESSION['status'] ?></p>
-                    </div>
-
-                </div>
-                <?php
-                unset($_SESSION['status']);
-            }
-            ?>
-
-
-        </div>
 
     </div>
 </div>

@@ -3,7 +3,7 @@ include '../connection.php';
 if(isset($_POST['clear'])) {
     $regno=$_POST['regno'];
     $department=$_POST['department'];
-    echo $department;
+
     $dept_id=$_POST['dept_id'];
     $cost=$_POST['cost'];
     $feebalance="select * from finance where regno='$regno'";
@@ -16,6 +16,7 @@ if(isset($_POST['clear'])) {
             session_start();
             $_SESSION['status'] = 'You need to first pay the fees before clear this amount because it is tooo high';
             header("Location:index.php");
+            die();
         }
         else{
             $updatedfeebalance=$exactbalance-$cost;

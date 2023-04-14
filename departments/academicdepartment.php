@@ -174,7 +174,7 @@ if(isset($_SESSION['status'])){
             </thead>
             <tbody>
             <?php
-            $orders="select c.regno, s.name,c.id, s.email,s.school,s.course from clearance c join students s on s.regno = c.regno where c.status='0'";
+            $orders="select c.regno,c.department, s.name,c.id, s.email,s.school,s.course from clearance c join students s on s.regno = c.regno where c.department='academics' && c.status='0'";
             $ordersrun=mysqli_query($conn,$orders);
             while($rows=mysqli_fetch_assoc($ordersrun)){
                 ?>
@@ -186,6 +186,7 @@ if(isset($_SESSION['status'])){
                     <td>
                         <form action="cleastudentprocessor.php" method="post">
                             <input type="hidden" name="regno" value="<?php echo $rows['regno']?>">
+                            <input type="hidden" name="department" value="<?php echo $rows['department']?>">
 
                                <button type="submit" class="btn btn-success" name="clearstudent">Clear Now</button>
 

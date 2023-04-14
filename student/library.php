@@ -52,10 +52,10 @@ include '../header.php';
                     <td><?php echo $posts['description'] ?></td>
                     <td>
                         <form action="payments.php" method="post">
-                            <input type="text" name="regno" value="<?php echo $posts['regno'] ?>">
-                            <input type="text" name="department" value="library">
-                            <input type="number" name="dept_id" value="<?php echo $posts['id'] ?>">
-                            <input type="number" name="cost" value="<?php echo $posts['cost'] ?>">
+                            <input type="text" name="regno" hidden="" value="<?php echo $posts['regno'] ?>">
+                            <input type="text" hidden="" name="department" value="library">
+                            <input type="number" hidden="" name="dept_id" value="<?php echo $posts['id'] ?>">
+                            <input type="number" hidden="" name="cost" value="<?php echo $posts['cost'] ?>">
                             <button name="clear" class="btn btn-secondary">Pay now</button>
                         </form>
                     </td>

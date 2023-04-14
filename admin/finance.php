@@ -1,5 +1,6 @@
 <?php
 session_start();
+include '../connection.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -68,8 +69,19 @@ session_start();
                 <h4>Finance Clearance form</h4>
                 <div class="form-group">
                     <label for="exampleInputEmail1" class="form-label">Regno</label>
-                    <input type="text" required class="form-control" name="regno" id="exampleInputEmail1" placeholder="Registration number">
-                </div>
+                    <select class="form-control" name="regno" id="">
+                        <?php
+                        $query  = "SELECT regno FROM students";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)){
+                            ?>
+                            <option value="<?php echo $row['regno'];?>">
+                                <?php echo $row['regno'];?>
+                            </option>
+                            <?php
+                        }
+                        ?>
+                    </select>            </div>                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1" class="form-label">Enter Fees Balance</label>
                     <input type="number" required class="form-control" name="feebalance" id="exampleInputEmail1" placeholder="Fees Balance">

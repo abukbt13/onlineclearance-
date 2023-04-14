@@ -1,8 +1,8 @@
 <?php
 session_start();
 $role=$_SESSION['role'];
-include '../connection.php';
-if($role!='library') {
+
+if($role!='boarding') {
     session_start();
     $_SESSION['status'] = 'Login first to be able to view this page';
     header('Location:../index.php');
@@ -140,11 +140,10 @@ if(isset($_SESSION['status'])){
 ?>
 <div class="d-flex bg-body-tertiary">
     <div class="sidebar  bg-info px-4">
-        <h2 class="text-center text-white bg-secondary">Library</h2>
-        <span>Library</span>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="library.php">Home</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/library.php">Add students to clear</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="librarydepartment.php">View Students</a></li>
+        <h2 class="text-center text-white bg-secondary">Boarding </h2>
+        <span>Boardings</span>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/boarding.php">Add students to clear</a></li>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="boardingdepartment.php">View Students</a></li>
 
         <li class="list-unstyled mb-3 ">
             <span>Reports</span><br>
@@ -161,48 +160,32 @@ if(isset($_SESSION['status'])){
         </li>
     </div>
     <div class="content">
-        <table class="table m-2 w-100  px-1 table-responsive-sm table-primary table-hover table-bordered">
-            <thead>
-            <tr><td class="text-center text-uppercase" colspan="5">All students</td></tr>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>School</th>
-                <th>course</th>
-                <th>Operation</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div>
+
             <?php
-            $orders="select c.regno,c.department, s.name,c.id, s.email,s.school,s.course from clearance c join students s on s.regno = c.regno where c.department='library' && c.status='0'";
-            $ordersrun=mysqli_query($conn,$orders);
-            while($rows=mysqli_fetch_assoc($ordersrun)){
+            if(isset($_SESSION['status'])){
                 ?>
-                <tr>
-                    <td><?php echo $rows['name']?></td>
-                    <td><?php echo $rows['email']?></td>
-                    <td><?php echo $rows['school']?></td>
-                    <td><?php echo $rows['course']?></td>
-                    <td>
-                        <form action="cleastudentprocessor.php" method="post">
-                            <input type="hidden" name="regno" value="<?php echo $rows['regno']?>">
-                            <input type="hidden" name="department" value="<?php echo $rows['department']?>">
+                <div>
+                    <div class="alert alert-success" role="alert">
+                        <button class="close" data-dismiss="alert" type="button" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">Success!</h4>
+                        <p><?php echo $_SESSION['status'] ?></p>
+                    </div>
 
-                            <button type="submit" class="btn btn-success" name="clearstudent">Clear Now</button>
-
-
-                        </form>
-                        </form>
-                    </td>
-                </tr>
+                </div>
                 <?php
+                unset($_SESSION['status']);
             }
             ?>
-            </tbody>
-        </table>
+
+
+        </div>
 
     </div>
 </div>
+
 
 </body>
 </html>
