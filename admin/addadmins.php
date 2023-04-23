@@ -44,6 +44,18 @@ if($role!='superadmin') {
     /*    width: 80vw;*/
     /*}*/
 </style>
+<div>
+    <?php
+    if(isset($_SESSION['status'])){
+        ?>
+
+                <p class="bg-danger p-2 text-uppercase text-center"><?php echo $_SESSION['status'] ?></p>
+
+        <?php
+        unset($_SESSION['status']);
+    }
+    ?>
+</div>
 <div class="d-flex bg-body-tertiary">
     <div class="sidebar  bg-info px-4">
         <h2 class="text-center text-white bg-secondary">Dashboard</h2>
@@ -57,20 +69,7 @@ if($role!='superadmin') {
         <li class="list-unstyled mb-3 "><a class="text-decoration-none bg-info p-2 active" href="students.php">Students</a></li>
     </div>
     <div class="content">
-        <div>
-            <?php
-            if(isset($_SESSION['status'])){
-                ?>
-                <div>
-                    <div class="bg-danger">
-                        <p class="bg-danger p-2 text-uppercase"><?php echo $_SESSION['status'] ?></p>
-                    </div>
-                </div>
-                <?php
-                unset($_SESSION['status']);
-            }
-            ?>
-        </div>
+
         <form class="form" method="post" action="adminprocessor.php">
 
             <h4>Add Admins </h4>

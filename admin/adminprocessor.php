@@ -72,24 +72,54 @@ if(isset($_POST['add_admins'])) {
     $department= $_POST['department'];
     $phone= $_POST['phone'];
     $idno= $_POST['idno'];
-
-    $sql1 = "select email from admins where idno='$idno'";
-    $query= mysqli_query($conn, $sql1);
-    $count = mysqli_num_rows($query);
-    if($count==0){
-        $sql2 = "insert into admins(email,name,department,phone,idno) values('$email','$name','$department','$phone','$idno')";
-        $query = mysqli_query($conn, $sql2);
-        if($query){
-            session_start();
-            $_SESSION['status'] = 'Admin added successfuly';
-            header("Location:index.php");
-        }
-    }
-    else{
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         session_start();
-        $_SESSION['status'] = 'Admin already exists';
-        header("Location:index.php");
+        $_SESSION['status'] = 'Enter correct email';
+        header("Location:addadmins.php");
     }
+    if(!preg_match('/^[A-Za-z]+$/',$name)){
+        session_start();
+        $_SESSION['status'] = 'Enter correct details';
+        header("Location:addadmins.php");
+    }
+
+
+    if(!preg_match('/^\d{8}$/',$idno)){
+        session_start();
+        $_SESSION['status'] = 'Enter correct details';
+        header("Location:addadmins.php");
+    }
+
+    if(preg_match('/^\d{10}$/',$phone)){
+        $sql1 = "select email from admins where idno='$idno'";
+        $query= mysqli_query($conn, $sql1);
+        $count = mysqli_num_rows($query);
+        if($count==0){
+            $sql2 = "insert into admins(email,name,department,phone,idno) values('$email','$name','$department','$phone','$idno')";
+            $query = mysqli_query($conn, $sql2);
+            if($query){
+                session_start();
+                $_SESSION['status'] = 'Admin added successfuly';
+                header("Location:index.php");
+            }
+        }
+        else{
+            session_start();
+            $_SESSION['status'] = 'Admin already exists';
+            header("Location:addadmins.php");
+        }
+    }else{
+        session_start();
+        $_SESSION['status'] = 'Enter correct details';
+        header("Location:addadmins.php");
+    }
+
+
+
+
+
+
+
 
 }
 if(isset($_POST['feebalance_clearance'])) {

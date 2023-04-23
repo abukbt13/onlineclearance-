@@ -57,11 +57,11 @@ session_start();
                     <p class="text-center">Login as Student</p>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your email">
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="e.g ndolo@gmail.com">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Registration Number</label>
-                        <input type="text" class="form-control" name="regno" placeholder="Enter Your Registration No">
+                        <input type="text" class="form-control" name="regno" placeholder="e.g CT201/10010/19">
                     </div>
                     <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
                     <p class="text-white text-uppercase mt-4">Dont remember Password?<a href="resetpassword.php">Click here</a></p>
@@ -75,11 +75,11 @@ session_start();
                     <p class="text-center">Admin Login </p>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Enter youe email" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="e.g ndolo@gmail.com" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">ID Number</label>
-                        <input type="text" class="form-control" name="idno" placeholder="Enter your Id No">
+                        <input type="text" class="form-control" name="idno" placeholder="e.g 12345678">
                     </div>
                     <button type="submit" name="stafflogin" class="btn btn-primary w-100">Login</button>
 

@@ -151,9 +151,9 @@ if(isset($_SESSION['status'])){
         <form action="reports.php" method="post">
             <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Cleared students</button>
         </form>
-            <form action="reports.php" method="post">
-                <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Uncleared  students</button>
-            </form>
+<!--            <form action="reports2.php" method="post">-->
+<!--                <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Uncleared  students</button>-->
+<!--            </form>-->
    </div>
     <div class="content">
         <div>

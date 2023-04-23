@@ -36,6 +36,16 @@ if($role!='superadmin') {
     }
 
 </style>
+<?php
+if(isset($_SESSION['status'])){
+    ?>
+
+            <p class="bg-danger p-2 text-uppercase text-center"><?php echo $_SESSION['status'] ?></p>
+
+    <?php
+    unset($_SESSION['status']);
+}
+?>
 <div class="container d-flex bg-body-tertiary">
     <div class="sidebar bg-info px-4">
         <h2>Clearance system</h2>
@@ -50,18 +60,7 @@ if($role!='superadmin') {
     </div>
     <div class="content">
         <div class="das d-flex justify-content-center align-items-center">
-            <?php
-            if(isset($_SESSION['status'])){
-                ?>
-                <div>
-                    <div class="bg-danger">
-                        <p class="bg-danger p-2 text-uppercase"><?php echo $_SESSION['status'] ?></p>
-                    </div>
-                </div>
-                <?php
-                unset($_SESSION['status']);
-            }
-            ?>
+
             <form class="form" method="post" action="processor.php">
                 <h1>MUST CLEARANCE SYSTEM</h1>
                 <h4>Upload students details</h4>
@@ -82,8 +81,8 @@ if($role!='superadmin') {
                     <label for="exampleInputPassword1" class="form-label">School</label>
                     <select name="school" id="" CLASS="form-control">
                         <option value="SCI">SCI</option>
-                        <option value="SPURS">SPURS</option>
-                        <option value="ACHED">ACHED</option>
+                        <option value="SPAS">SPAS</option>
+                        <option value="AGED">AGED</option>
                         <option value="SBE">SBE</option>
                     </select>
                 </div>

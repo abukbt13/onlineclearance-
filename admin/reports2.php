@@ -2,17 +2,15 @@
 
 include '../connection.php';
 require_once '../vendor/autoload.php';
-$data="select * from students where library=1 and  boardings=1 and academics=1";
-$datarun=mysqli_query($conn,$data);
-$rows=mysqli_fetch_all($datarun,MYSQLI_ASSOC);
-
-
-
+$data="select * from students where library==='' ";
+$datarun = mysqli_query($conn, $data);
+$rows = mysqli_fetch_all($datarun, MYSQLI_ASSOC);
 
 
 use Dompdf\Dompdf;
-$html='<h2>List Of Graduating Students</h2>';
-$html .='<p style="font-size: 20px;color:blue; text-space: 1.5;">The following students managed to satisfied the boad of examiners and are the ones to graduate this yea.Thanks for their hardwork and resilience they put when they were studying.</p>';
+
+$html = '<h2>List Of Graduating Students</h2>';
+$html .= '<p style="font-size: 20px;color:blue; text-space: 1.5;">The following students managed to satisfied the boad of examiners and are the ones to graduate this yea.Thanks for their hardwork and resilience they put when they were studying.</p>';
 
 $html .= '<table style="border:2px solid blue;border-collapse: collapse;">   
             <style>
@@ -32,12 +30,12 @@ $html .= '<table style="border:2px solid blue;border-collapse: collapse;">
             
            </thead>';
 
-foreach ($rows as $row){
-    $html .='<tr>
-            <td>'.$row['name'].'</td>
-            <td>'.$row['regno'].'</td>
-            <td>'.$row['school'].'</td>
-            <td>'.$row['course'].'</td>
+foreach ($rows as $row) {
+    $html .= '<tr>
+            <td>' . $row['name'] . '</td>
+            <td>' . $row['regno'] . '</td>
+            <td>' . $row['school'] . '</td>
+            <td>' . $row['course'] . '</td>
 </tr>';
 }
 $html .= '</table>';
@@ -54,4 +52,3 @@ $dompdf->render();
 // Output the generated PDF to Browser
 $dompdf->stream('clearedstudents.pdf', array('Attachment' => 0));
 
-?>
