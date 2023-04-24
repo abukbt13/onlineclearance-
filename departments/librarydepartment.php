@@ -146,19 +146,7 @@ if(isset($_SESSION['status'])){
         <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/library.php">Add students to clear</a></li>
         <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="librarydepartment.php">View Students</a></li>
 
-        <li class="list-unstyled mb-3 ">
-            <span>Reports</span><br>
-            <form action="reports.php" method="post">
-                <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Clear students</button>
-            </form>
-            <form action="reports.php" method="post">
-                <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Generate report</button>
-            </form>
-        </li>
-        <li class="list-unstyled mb-3 ">
-            <span>Clearance Requests</span><br><br>
-            <a href="../admin/requests.php" class="text-decoration-none mt-3">Requests</a>
-        </li>
+
     </div>
     <div class="content">
         <table class="table m-2 w-100  px-1 table-responsive-sm table-primary table-hover table-bordered">

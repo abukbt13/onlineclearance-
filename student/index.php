@@ -127,6 +127,7 @@ if(isset($_SESSION['status'])){
                 <li><a href="index.php">Home</a></li>
                 <li><a href="academics.php">Academics</a></li>
                 <li><a href="library.php">Library</a></li>
+                <li><a href="boarding.php">Boarding</a></li>
                 <li><a href="finance.php">Finance</a></li>
             </ul>
         </div>

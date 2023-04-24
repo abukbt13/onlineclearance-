@@ -1,6 +1,7 @@
 <?php
 session_start();
 $role=$_SESSION['role'];
+include '../connection.php';
 
 if($role!='superadmin') {
     session_start();
@@ -174,6 +175,33 @@ if(isset($_SESSION['status'])){
                 unset($_SESSION['status']);
             }
             ?>
+            <div class="">
+                <h1 class="text-white text-decoration-underline">Dashboard view</h1>
+            </div>
+            <div class="items d-flex align-content-center justify-content-center">
+                <div class="students p-4 bg-info m-2" >
+                    <p class="text-center">Expected student to graduate this year</p>
+                    <p class="text-center">
+                        <?php
+                    $academics="select * from students";
+                    $academicsrun=mysqli_query($conn,$academics);
+                    $academicsnum=mysqli_num_rows($academicsrun);
+                    echo $academicsnum;
+                    ?>
+                    </p>
+
+                </div>
+                <div class="students m-2 p-4 bg-info" >
+                    <p class="text-center">Cleared students</p>
+                    <p class="text-center"><?php
+                    $data="select * from students where library=1 and  boardings=1 and academics=1";
+                        $datarun=mysqli_query($conn,$data);
+                        $datarunnum=mysqli_num_rows($datarun);
+                        echo $datarunnum;
+                        ?>
+                    </p>
+                </div>
+            </div>
 
        </div>
 

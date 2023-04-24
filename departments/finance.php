@@ -142,22 +142,9 @@ if(isset($_SESSION['status'])){
     <div class="sidebar  bg-info px-4">
         <h2 class="text-center text-white bg-secondary">Finance </h2>
         <span>Finance</span>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/finance.php">Add students to clear</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="financedepartment.php">View Students</a></li>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="../admin/finance.php">Add students fees balancer</a></li>
 
-        <li class="list-unstyled mb-3 ">
-            <span>Reports</span><br>
-            <form action="reports.php" method="post">
-                <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Clear students</button>
-            </form>
-            <form action="reports.php" method="post">
-                <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Generate report</button>
-            </form>
-        </li>
-        <li class="list-unstyled mb-3 ">
-            <span>Clearance Requests</span><br><br>
-            <a href="../admin/requests.php" class="text-decoration-none mt-3">Requests</a>
-        </li>
+
     </div>
     <div class="content">
         <div>

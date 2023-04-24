@@ -36,7 +36,101 @@ if($role!='superadmin') {
     }
 
 </style>
-<?php
+<style>
+    .head{
+        padding-left: 1rem;
+        background: antiquewhite;
+        display: flex;
+        justify-content: space-between;
+        height: 3rem;
+    }
+    .ul{
+        display: flex;
+    }
+
+    .ul li{
+        list-style: none;
+        margin-right: 1rem;
+        font-size: 22px;
+    }
+    .ul li a{
+        padding: 0.5rem;
+        text-decoration: none;
+    }
+    .ul li a:hover{
+        background: blue;
+        color: white;
+    }
+    .show{
+        display: none;
+        position: absolute;
+        top: 0.2rem;
+        right: 0.2rem;
+        color: #0a58ca;
+    }
+    @media screen and (max-width: 500px) and (min-width: 200px) {
+        .show{
+            display: block;
+        }
+        .head{
+            display: flex;
+            flex-direction: column;
+            padding-left: 0rem;
+            position: relative;
+        }
+        .ul{
+            position: relative;
+            display: flex;
+            top: -6rem;
+            background: grey;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            /*transition-property: top;*/
+            transition-duration: 0.5s;
+            transition-timing-function: ease-in;
+        }
+        .ul li {
+            list-style: none;
+            margin-right: 0rem;
+        }
+        .ul li a:hover{
+            background: blue;
+            color: white;
+        }
+        .active{
+            top: 0rem;
+        }
+
+    }</style>
+<div class="head bg-info">
+    <h3><a href="index.php">Meru University Of Science And Technology</a></h3>
+    <ul class="ul" id="links" class="links">
+
+        <?php
+
+        if (isset($_SESSION['role'])) {
+            $role=$_SESSION['role'];
+            if($role==1){
+                echo '<li><a href="logout.php">Logout</a></li>';
+
+            }
+            else{
+                echo '<li><a href="logout.php">Logout</a></li>';
+
+            }
+
+        }
+        else{
+            echo '<li><a href="../logout.php">Logout</a></li>';
+
+        }
+        ?>
+    </ul>
+    <span class="show" id="show">Show</span>
+
+
+</div><?php
 if(isset($_SESSION['status'])){
     ?>
 
@@ -46,17 +140,24 @@ if(isset($_SESSION['status'])){
     unset($_SESSION['status']);
 }
 ?>
+
 <div class="container d-flex bg-body-tertiary">
-    <div class="sidebar bg-info px-4">
-        <h2>Clearance system</h2>
+    <div class="sidebar  bg-info px-4">
+        <h2 class="text-center text-white bg-secondary">Dashboard</h2>
         <span>Departments</span>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="academics.php">Academics</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="boarding.php">Boarding</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="finance.php">Finance</a></li>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="sports.php">Sports</a><br>
-        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="library.php">Library</a><br>
-            <span>Students</span><br>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="index.php">Home</a></li>
+        <li class="list-unstyled mb-3"><a class="text-decoration-none bg-info p-2" href="addadmins.php">Add Admin</a></li>
+        <span>Students</span><br>
         <li class="list-unstyled mb-3 "><a class="text-decoration-none bg-info p-2 active" href="students.php">Students</a></li>
+
+        <li class="list-unstyled mb-3 ">
+            <span>Reports</span><br>
+            <form action="reports.php" method="post">
+                <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Cleared students</button>
+            </form>
+            <!--            <form action="reports2.php" method="post">-->
+            <!--                <button style="border:none; margin-bottom: 1rem;margin-top: 1rem;" name="cleared" class="bg-primary">Uncleared  students</button>-->
+            <!--            </form>-->
     </div>
     <div class="content">
         <div class="das d-flex justify-content-center align-items-center">
@@ -79,7 +180,8 @@ if(isset($_SESSION['status'])){
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">School</label>
-                    <select name="school" id="" CLASS="form-control">
+                    <select name="school" id="school" CLASS="form-control">
+                        <option value=""> --select school--</option>
                         <option value="SCI">SCI</option>
                         <option value="SPAS">SPAS</option>
                         <option value="AGED">AGED</option>
@@ -88,7 +190,9 @@ if(isset($_SESSION['status'])){
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Course</label>
-                    <input type="text" class="form-control" name="course" placeholder="course">
+                    <select class="form-control" name="course" id="course">
+
+                    </select>
                 </div>
                 <div class="d-flex align-items-center flex-row  justify-content-center">
                     <button type="submit" name="save_student" class="btn w-50 btn-primary text-uppercase">Save students details</button>
@@ -98,5 +202,50 @@ if(isset($_SESSION['status'])){
     </div>
 
 
+    <script>
+        var school = document.getElementById("school");
+        var course = document.getElementById("course");
+
+        school.addEventListener("change", function() {
+            var type= school.value;
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Set up the Ajax request
+            xhr.open("POST", "coursedropdown.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            // Send the Ajax request with the selected region value
+            xhr.send("name=" + type);
+
+            // Handle the Ajax response
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                    var names = JSON.parse(xhr.responseText);
+
+                    // Clear the districts select element and add the new options
+                    course.innerHTML = "";
+
+                    // Add a null/empty option as the first option
+                    var emptyOption = document.createElement("option");
+                    emptyOption.value = "";
+                    emptyOption.text = "--Select product name--";
+                    course.appendChild(emptyOption);
+
+                    for (var i = 0; i < names.length; i++) {
+                        var option = document.createElement("option");
+                        option.value = names[i];
+                        option.text = names[i];
+                        course.appendChild(option);
+                    }
+                }
+            }
+        });
+
+
+
+
+    </script>
 </body>
 </html>

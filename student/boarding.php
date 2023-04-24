@@ -24,11 +24,11 @@ include '../header.php';
     <div class="sidebar w-25">
         <h2>My dashboard</h2>
         <div class="clear">
-            <ul> <li><a href="index.php">Home</a></li>
+            <ul>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="academics.php">Academics</a></li>
-                <li><a href="sports.php">Sports</a></li>
-                <li><a href="boarding.php">Boarding</a></li>
                 <li><a href="library.php">Library</a></li>
+                <li><a href="boarding.php">Boarding</a></li>
                 <li><a href="finance.php">Finance</a></li>
             </ul>
         </div>
