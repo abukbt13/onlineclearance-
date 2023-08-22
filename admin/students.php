@@ -182,7 +182,9 @@ if(isset($_SESSION['status'])){
                     <label for="exampleInputPassword1" class="form-label">School</label>
                     <select name="school" id="school" CLASS="form-control">
                         <option value=""> --select school--</option>
+                        <option value="SEA">SEA</option>
                         <option value="SCI">SCI</option>
+                        <option value="SED">SED</option>
                         <option value="SPAS">SPAS</option>
                         <option value="AGED">AGED</option>
                         <option value="SBE">SBE</option>
@@ -190,8 +192,17 @@ if(isset($_SESSION['status'])){
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Course</label>
-                    <select class="form-control" name="course" id="course">
-
+                    <select name="course" id="school" CLASS="form-control">
+                        <option value=""> --select course--</option>
+                        <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+                        <option value="Bachelor Of Education in Arts">Bachelor Of Education in Arts</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Bachelor Of Education in Science">Bachelor Of Education in science</option>
+                        <option value="Bachelor of Technology in Electrical And Electronic">Bachelor of Technology in Electrical And Electronic</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Bachelor of Technology in Mechanical Engineering">Bachelor of Technology in Mechanical Engineering</option>
+                        <option value="Computer Technology">Computer Technology</option>
+                        <option value="Mathematics And Computer Science">Mathematics And Computer Science</option>
                     </select>
                 </div>
                 <div class="d-flex align-items-center flex-row  justify-content-center">
